@@ -5,55 +5,24 @@ public class Solution7 {
             sign = 1;
         }
         else sign = -1;
+        x = x*sign; //making things positive
 
-        String reversed = new StringBuilder(Integer.toString(x*sign)).reverse().toString();
-
-        if(reversed.length() > 10){
-            return 0;
-        }
-
-        if(reversed.length() == 10){
-            if(reversed.charAt(0) > '2'){
-                return 0;
-            }
-
-            int max_remainderby10 = 147483647;
-
-            if(Integer.parseInt(reversed.substring(1)) > max_remainderby10){
-                return 0;
-            }
-        }
-        return Integer.parseInt(reversed)*sign;
-    }
-
-    public int reverse2(int x) {
-        int sign;
-        if(x >= 0){
-            sign = 1;
-        }
-        else sign = -1;
-        x = x*sign;
-        //String reversed = new StringBuilder(Integer.toString(x*sign)).reverse().toString();
-
-        if(x > 999999999){
+        if(x > 999999999){ //if 10 digit
             if(x%10 > 2){
                 return 0;
             }
-            else {
-                int reversed = 0;
-                int x2 = x % 1000000000;
-                int x2_f = x/1000000000;
-                while (x2>0){
-                    reversed = reversed*10 + x2%10;
-                    x2/=10;
-                }
-                if(reversed > 147483647){
-                    return 0;
-                }
-                else {
+            int d1_after_rev = x%10;
+            int rest_after_rev = x/10;
+            int reversed = 0;
 
-                }
+            while (rest_after_rev>0){
+                reversed = reversed*10 + rest_after_rev%10;
+                rest_after_rev/=10;
             }
+            if(d1_after_rev == 2 && reversed <= 147483647){
+                return (d1_after_rev*1000000000 + reversed)*sign;
+            }                         // 1493847412
+            else return 0;
         }
         int reversed = 0;
         while (x>0){
@@ -65,15 +34,14 @@ public class Solution7 {
 
     public static void main(String[] args) {
         Solution7 obj = new Solution7();
-        System.out.println(obj.reverse2(1599999999));
-        System.out.println(obj.reverse2(1493847412));
-        System.out.println(obj.reverse2(-123456789));
-        System.out.println(obj.reverse2(987654321));
-        System.out.println(obj.reverse2(123456789));
-        System.out.println(obj.reverse2(123));
-        System.out.println(obj.reverse2(0));
-        System.out.println(obj.reverse2(-12313));
-        System.out.println(obj.reverse2(-2147483412));
-    }                                      // 2143847412
-}                                          // 2147483647
-                                            // 147483647
+        System.out.println(obj.reverse(1599999999));
+        System.out.println(obj.reverse(1493847412));
+        System.out.println(obj.reverse(-123456789));
+        System.out.println(obj.reverse(987654321));
+        System.out.println(obj.reverse(123456789));
+        System.out.println(obj.reverse(123));
+        System.out.println(obj.reverse(0));
+        System.out.println(obj.reverse(-12313));
+        System.out.println(obj.reverse(-2147483412));
+    }
+}
