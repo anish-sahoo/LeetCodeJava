@@ -3,28 +3,23 @@ import java.util.HashSet;
 
 public class Solution383 {
     public boolean canConstruct(String ransomNote, String magazine) {
-        HashMap<String, Integer> ransom = new HashMap<>();
-        HashMap<String, Integer> mag = new HashMap<>();
-        for(String a:ransomNote.split("")){
-            if(ransom.containsKey(a)){
-                ransom.put(a, ransom.get(a)+1);
-            }
-            else ransom.put(a, 1);
+        HashMap<Character, Integer> magazineMap = new HashMap<>();
+        for (int i = 0; i < magazine.length(); i++) {
+            char a = magazine.charAt(i);
+            int count = magazineMap.getOrDefault(a,0);
+            magazineMap.put(a,count+1);
         }
-        for(String a:magazine.split("")){
-            if(mag.containsKey(a)){
-                mag.put(a, mag.get(a)+1);
-            }
-            else mag.put(a, 1);
-        }
-        for(String a: ransom.keySet()){
-            if(!mag.containsKey(a)){
+
+        for (int i = 0; i < ransomNote.length(); i++) {
+            char a = ransomNote.charAt(i);
+            int count = magazineMap.getOrDefault(a,0);
+            if(count == 0) {
+                System.gc();
                 return false;
             }
-            else if(ransom.get(a) > mag.get(a)){
-                return false;
-            }
+            else magazineMap.put(a,count-1);
         }
+        System.gc();
         return true;
     }
 }
