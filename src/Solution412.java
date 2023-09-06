@@ -1,7 +1,7 @@
 import java.util.*;
 
 class Solution412 {
-    //most optimized theoretically, but slow irl
+    //most elegant theoretically, but slow irl
     public List<String> fizzBuzz(int n) {
         List<String> l = new ArrayList<>();
         HashMap<Integer, String> map = new HashMap<>();
@@ -38,3 +38,4 @@ class Solution412 {
         return l;
     }
 }
+
