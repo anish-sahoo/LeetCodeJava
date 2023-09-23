@@ -1,11 +1,31 @@
+import java.lang.reflect.Array;
+import java.util.Arrays;
+
 class Solution20 {
-    public boolean isValid(String s) {
-        while(s.contains("()") || s.contains("{}") || s.contains("[]")){
-            s = s.replace("()","");
-            s = s.replace("{}","");
-            s = s.replace("[]","");
+    public boolean isValid(String s){
+        char[] a = new char[s.length()];
+        int i = 0;
+        for(char c: s.toCharArray()){
+            switch (c){
+                case ')' -> {
+                    if(i==0 || a[--i] != '(' ){
+                        return false;
+                    }
+                }
+                case ']' -> {
+                    if(i==0 || a[--i] != '['){
+                        return false;
+                    }
+                }
+                case '}' -> {
+                    if(i==0 || a[--i] != '{'){
+                        return false;
+                    }
+                }
+                default -> a[i++] = c;
+            }
         }
-        return s.length()==0;
+        return i == 0;
     }
 
     public static void main(String[] args) {
