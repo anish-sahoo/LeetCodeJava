@@ -1,6 +1,3 @@
-import java.lang.reflect.Array;
-import java.util.Arrays;
-
 class Solution20 {
     public boolean isValid(String s){
         char[] a = new char[s.length()];
